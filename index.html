@@ -23,7 +23,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md col-lg col-sm">
-          <div class="jumbotron text-white text-center">
+          <div class="jumbotron text-white text-center mt-2">
             <h1 class="display-5">Train Time</h1>
             <h4>Fake trains, but still more reliable than the MTA</h4>
           </div>
@@ -32,7 +32,7 @@
       <div class="row">
         <!-- data -->
         <div class="col-md">
-          <div class="card rounded">
+          <div class="card rounded mb-4">
             <h6 class="card-header bg-header text-white">
               Current Train Schedule
             </h6>
@@ -70,19 +70,19 @@
               <form id="addTrainForm">
                 <div class="form-group">
                   <label for="trainName">Train Name</label>
-                  <input type="text" class="form-control" id="trainName"/>
+                  <input type="text" class="form-control" id="trainName" required/>
                 </div>
                 <div class="form-group">
                   <label for="destination">Destination</label>
-                  <input type="text" class="form-control" id="destination" />
+                  <input type="text" class="form-control" id="destination" required/>
                 </div>
                 <div class="form-group">
                   <label for="firstTrainTime">First Train Time (HH:mm - military time)</label>
-                  <input type="time" class="form-control" id="firstTrainTime" />
+                  <input type="time" class="form-control" id="firstTrainTime" required/>
                 </div>
                 <div class="form-group">
                   <label for="frequency">Frequency (min)</label>
-                  <input type="number" class="form-control" id="frequency" />
+                  <input type="number" class="form-control" id="frequency" required/>
                 </div>
                 <button type="submit" class="btn btn-primary" id="submit">
                   Submit
