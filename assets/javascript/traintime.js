@@ -43,4 +43,27 @@ $(document).ready(function() {
     // reset form
     form.reset();
   });
+
+  database.ref("/trainData").orderByChild("trainName").on("child_added", function(snapshot) {
+    var cs = snapshot.val();
+    console.log(cs);
+
+    var nextArrival = "8:00";
+    var minutesAway = "3";
+
+    var newRow = $("<tr>").append(
+      $("<td>").text(cs.trainName),
+      $("<td>").text(cs.destination),
+      $("<td>").text(cs.frequency),
+      $("<td>").text(nextArrival),
+      $("<td>").text(minutesAway)
+    );
+
+       // apend new row to the table
+       $("#trainTable > tbody").append(newRow);
+
+
+  })
+
+
 });

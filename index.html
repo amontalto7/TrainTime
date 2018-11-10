@@ -37,7 +37,7 @@
               Current Train Schedule
             </h6>
             <div class="card-body">
-              <table class="table table-striped table-hover">
+              <table class="table table-striped table-hover" id="trainTable">
                 <thead>
                   <tr>
                     <th scope="col">Train Name</th>
@@ -47,14 +47,14 @@
                     <th scope="col">Minutes Away</th>
                   </tr>
                 </thead>
-                <tbody id="tableBody">
-                  <tr>
+                <tbody>
+                  <!-- <tr>
                     <td>E</td>
                     <td>World Trade Center</td>
                     <td>6</td>
                     <td>08:32 AM</td>
                     <td>2</td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>
@@ -78,7 +78,8 @@
                 </div>
                 <div class="form-group">
                   <label for="firstTrainTime">First Train Time (HH:mm - military time)</label>
-                  <input type="time" class="form-control" id="firstTrainTime" required/>
+                  <!-- type="time" doesn't let me use military time, so using text here -->
+                  <input type="text" class="form-control" id="firstTrainTime" required/>   
                 </div>
                 <div class="form-group">
                   <label for="frequency">Frequency (min)</label>
