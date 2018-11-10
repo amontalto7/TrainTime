@@ -1,9 +1,12 @@
+body {
+    /* background-color:  */
+    background-image: linear-gradient( aliceblue,  #96ceff);
+}
+
 .jumbotron {
     background-color: maroon;
 }
 
-div {
-}
 .bg-header, #submit {
     background-color:blueviolet;
 }
