@@ -15,20 +15,20 @@ const database = firebase.database();
 
 // google client id: 827108550992-ubcto1rqv5hjigafktd7pccr078ev6bk.apps.googleusercontent.com
 // google client secret: S0QlDBvhyr2jlCRU9YkFqF2S
-function onSignIn(googleUser) {
-  // Useful data for your client-side scripts:
-  var profile = googleUser.getBasicProfile();
-  console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-  console.log('Full Name: ' + profile.getName());
-  console.log('Given Name: ' + profile.getGivenName());
-  console.log('Family Name: ' + profile.getFamilyName());
-  console.log("Image URL: " + profile.getImageUrl());
-  console.log("Email: " + profile.getEmail());  
+// function onSignIn(googleUser) {
+//   // Useful data for your client-side scripts:
+//   var profile = googleUser.getBasicProfile();
+//   console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+//   console.log('Full Name: ' + profile.getName());
+//   console.log('Given Name: ' + profile.getGivenName());
+//   console.log('Family Name: ' + profile.getFamilyName());
+//   console.log("Image URL: " + profile.getImageUrl());
+//   console.log("Email: " + profile.getEmail());  
 
-  // The ID token you need to pass to your backend:
-  var id_token = googleUser.getAuthResponse().id_token;
-  console.log("ID Token: " + id_token);
-};
+//   // The ID token you need to pass to your backend:
+//   var id_token = googleUser.getAuthResponse().id_token;
+//   console.log("ID Token: " + id_token);
+// };
 
 
 
@@ -56,8 +56,6 @@ $(document).ready(function() {
     // ...
   });
   
-
-
 
   // click event for submit button
   $("#submit").on("click", function() {
@@ -89,10 +87,7 @@ $(document).ready(function() {
     form.reset();
   });
 
-  database
-    .ref("/trainData")
-    .orderByChild("trainName")
-    .on("child_added", function(snapshot) {
+  database.ref("/trainData").orderByChild("trainName").on("child_added", function(snapshot) {
       var cs = snapshot.val();
       // console.log(cs);
 
@@ -123,6 +118,7 @@ $(document).ready(function() {
 
       var deleteIcon = $("<img>").attr("src","assets/images/del.png");
       deleteIcon.addClass("del");
+      deleteIcon.attr("data-trainName", cs.trainName);
 
       var newRow = $("<tr>").append(
         $("<td>").text(cs.trainName),
@@ -135,6 +131,17 @@ $(document).ready(function() {
 
       // apend new row to the table
       $("#trainTable > tbody").append(newRow);
+    });
+
+    $(document).on("click", ".del", function() {
+
+      //1) get reference to data in current row.
+      var trainName = $(this).attr("data-trainName");
+      console.log(trainName);
+      var rowRef = firebase.database().ref("/trainData").child("trainName").equalTo(trainName);
+      console.log(rowRef);
+      // database.child(rowRef).remove();
+      database.remove(rowRef);
     });
 
 
