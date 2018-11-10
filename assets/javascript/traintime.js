@@ -44,26 +44,47 @@ $(document).ready(function() {
     form.reset();
   });
 
-  database.ref("/trainData").orderByChild("trainName").on("child_added", function(snapshot) {
-    var cs = snapshot.val();
-    console.log(cs);
+  database
+    .ref("/trainData")
+    .orderByChild("trainName")
+    .on("child_added", function(snapshot) {
+      var cs = snapshot.val();
+      // console.log(cs);
 
-    var nextArrival = "8:00";
-    var minutesAway = "3";
+      var firstTime = cs.firstTrain;
+      var frequency = cs.frequency;
 
-    var newRow = $("<tr>").append(
-      $("<td>").text(cs.trainName),
-      $("<td>").text(cs.destination),
-      $("<td>").text(cs.frequency),
-      $("<td>").text(nextArrival),
-      $("<td>").text(minutesAway)
-    );
+      // First Time (pushed back 1 year to make sure it comes before current time)
+      var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
 
-       // apend new row to the table
-       $("#trainTable > tbody").append(newRow);
+      var currentTime = moment();
+      // console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
+      // Difference between the times
+      var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+      // console.log("DIFFERENCE IN TIME: " + diffTime);
 
-  })
+      // Time apart (remainder)
+      var tRemainder = diffTime % frequency;
+      // console.log(tRemainder);
 
+     // Minutes Until next train
+      var tMinutesTillTrain = frequency - tRemainder;
+      // console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
+      // Next Train
+      var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+      // console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+      var newRow = $("<tr>").append(
+        $("<td>").text(cs.trainName),
+        $("<td>").text(cs.destination),
+        $("<td>").text(cs.frequency),
+        $("<td>").text(nextTrain.format("LT")),
+        $("<td>").text(tMinutesTillTrain)
+      );
+
+      // apend new row to the table
+      $("#trainTable > tbody").append(newRow);
+    });
 });
