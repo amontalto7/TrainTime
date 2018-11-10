@@ -3,29 +3,29 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="827108550992-ubcto1rqv5hjigafktd7pccr078ev6bk.apps.googleusercontent.com">
+ 
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
+      crossorigin="anonymous"/>
     <link rel="stylesheet" type="text/css" href="assets\css\style.css" />
 
     <title>Train Time</title>
   </head>
   <body>
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <div class="container">
       <div class="row">
         <div class="col-md col-lg col-sm">
           <div class="jumbotron text-white text-center mt-2">
             <h1 class="display-5">Train Time</h1>
             <h4>Fake trains, but still more reliable than the MTA</h4>
+            <div class="g-signin2" data-onsuccess="onSignIn"><a href="#" onclick="signOut();">Sign out</a></div>
           </div>
         </div>
       </div>
@@ -120,9 +120,15 @@
     ></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <script
-      type="text/javascript"
-      src="assets/javascript/traintime.js"
-    ></script>
+    <script type="text/javascript" src="assets/javascript/traintime.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log('User signed out.');
+          });
+        }
+      </script>
   </body>
 </html>
