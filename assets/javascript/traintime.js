@@ -23,7 +23,7 @@ function onSignIn(googleUser) {
   console.log('Given Name: ' + profile.getGivenName());
   console.log('Family Name: ' + profile.getFamilyName());
   console.log("Image URL: " + profile.getImageUrl());
-  console.log("Email: " + profile.getEmail());
+  console.log("Email: " + profile.getEmail());  
 
   // The ID token you need to pass to your backend:
   var id_token = googleUser.getAuthResponse().id_token;
@@ -121,12 +121,16 @@ $(document).ready(function() {
       var nextTrain = moment().add(tMinutesTillTrain, "minutes");
       // console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
+      var deleteIcon = $("<img>").attr("src","assets/images/del.png");
+      deleteIcon.addClass("del");
+
       var newRow = $("<tr>").append(
         $("<td>").text(cs.trainName),
         $("<td>").text(cs.destination),
         $("<td>").text(cs.frequency),
         $("<td>").text(nextTrain.format("LT")),
-        $("<td>").text(tMinutesTillTrain)
+        $("<td>").text(tMinutesTillTrain),
+        $("<td>").append(deleteIcon)
       );
 
       // apend new row to the table

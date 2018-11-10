@@ -10,3 +10,7 @@ body {
 .bg-header, #submit {
     background-color:blueviolet;
 }
+
+.del {
+    height: 20px;
+}
