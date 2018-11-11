@@ -23,21 +23,17 @@ const database = firebase.database();
 //   console.log('Given Name: ' + profile.getGivenName());
 //   console.log('Family Name: ' + profile.getFamilyName());
 //   console.log("Image URL: " + profile.getImageUrl());
-//   console.log("Email: " + profile.getEmail());  
+//   console.log("Email: " + profile.getEmail());
 
 //   // The ID token you need to pass to your backend:
 //   var id_token = googleUser.getAuthResponse().id_token;
 //   console.log("ID Token: " + id_token);
 // };
 
-
-
 $(document).ready(function() {
-
-  
   // // google Authentication
   // var provider = new firebase.auth.GoogleAuthProvider();
-  
+
   // firebase.auth().signInWithPopup(provider).then(function(result) {
   //   // This gives you a Google Access Token. You can use it to access the Google API.
   //   var token = result.credential.accessToken;
@@ -56,7 +52,6 @@ $(document).ready(function() {
   //   var credential = error.credential;
   //   // ...
   // });
-  
 
   // click event for submit button
   $("#submit").on("click", function() {
@@ -88,7 +83,10 @@ $(document).ready(function() {
     form.reset();
   });
 
-  database.ref("/trainData").orderByChild("trainName").on("child_added", function(snapshot) {
+  database
+    .ref("/trainData")
+    .orderByChild("trainName")
+    .on("child_added", function(snapshot) {
       var cs = snapshot.val();
       // console.log(cs);
 
@@ -109,7 +107,7 @@ $(document).ready(function() {
       var tRemainder = diffTime % frequency;
       // console.log(tRemainder);
 
-     // Minutes Until next train
+      // Minutes Until next train
       var tMinutesTillTrain = frequency - tRemainder;
       // console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
@@ -117,7 +115,7 @@ $(document).ready(function() {
       var nextTrain = moment().add(tMinutesTillTrain, "minutes");
       // console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
-      var deleteIcon = $("<img>").attr("src","assets/images/del.png");
+      var deleteIcon = $("<img>").attr("src", "assets/images/del.png");
       deleteIcon.addClass("del");
       deleteIcon.attr("data-trainName", cs.trainName);
 
@@ -134,24 +132,24 @@ $(document).ready(function() {
       $("#trainTable > tbody").append(newRow);
     });
 
-    $(document).on("click", ".del", function() {
-
-      //1) get reference to data in current row.
-      var trainName = $(this).attr("data-trainName");
-      console.log(trainName);
-      var rowRef = firebase.database().ref("/trainData").child("trainName").equalTo(trainName);
-      console.log(rowRef);
-      // database.child(rowRef).remove();
-      database.remove(rowRef);
-    });
-
-
+  $(document).on("click", ".del", function() {
+    //1) get reference to data in current row.
+    var trainName = $(this).attr("data-trainName");
+    console.log(trainName);
+    var rowRef = firebase
+      .database()
+      .ref("/trainData")
+      .child("trainName")
+      .equalTo(trainName);
+    console.log(rowRef);
+    // database.child(rowRef).remove();
+    database.remove(rowRef);
+  });
 });
 
-
 //attempting to get google sign-in to work
-function login(){
-  function newLoginHappened(user){
+function login() {
+  function newLoginHappened(user) {
     if (user) {
       // User is signed in
       app(user);
@@ -165,14 +163,22 @@ function login(){
 }
 
 function app(user) {
-  console.log(user);
+  // console.log(user);
   // user.displayName
   // user.email
   // user.photoURL
   // user.uid
-  $("#clientName").html(user.displayName+"!");
+  $("#clientName").html(user.displayName + "!");
   // $("#clientName").text("there!");
+}
 
+function signOut() {
+  firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    })
+    .catch(function(error) {
+      // An error happened.
+    });
 }
 
 window.onload = login;
