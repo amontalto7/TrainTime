@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-md col-lg col-sm">
           <p>Hello <span id="clientName"></span></p>
-          <!-- <a href="#" onclick="signOut();"">Sign out</a> -->
+          <a href="#" onclick="signOut();"">Sign out</a>
           <div class="jumbotron text-white text-center mt-2">
             <h1 class="display-5">Train Time</h1>
             <h4>Fake trains, but still more reliable than the MTA</h4>
@@ -126,11 +126,14 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
         function signOut() {
-          var auth2 = gapi.auth2.getAuthInstance();
-          auth2.signOut().then(function () {
-            console.log('User signed out.');
-          });
-        }
+          firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}).catch(function(error) {
+  // An error happened.
+});
+
+
+}
       </script>
   </body>
 </html>
