@@ -157,7 +157,7 @@ function login(){
       app(user);
     } else {
       var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithRedirect(provider);
+      firebase.auth().signInWithPopup(provider);
     }
   }
 
@@ -165,12 +165,13 @@ function login(){
 }
 
 function app(user) {
+  console.log(user);
   // user.displayName
   // user.email
   // user.photoURL
   // user.uid
-  $("#clientName").html(user.displayName);
-  // $("#clientName").html("there!");
+  $("#clientName").html(user.displayName+"!");
+  // $("#clientName").text("there!");
 
 }
 
