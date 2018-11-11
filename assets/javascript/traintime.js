@@ -35,27 +35,27 @@ const database = firebase.database();
 $(document).ready(function() {
 
   
-  // google Authentication
-  var provider = new firebase.auth.GoogleAuthProvider();
+  // // google Authentication
+  // var provider = new firebase.auth.GoogleAuthProvider();
   
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    console.log(token);
-    // The signed-in user info.
-    var user = result.user;
-    console.log(user);
-    // ...
-  }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-  });
+  // firebase.auth().signInWithPopup(provider).then(function(result) {
+  //   // This gives you a Google Access Token. You can use it to access the Google API.
+  //   var token = result.credential.accessToken;
+  //   console.log(token);
+  //   // The signed-in user info.
+  //   var user = result.user;
+  //   console.log(user);
+  //   // ...
+  // }).catch(function(error) {
+  //   // Handle Errors here.
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   // The email of the user's account used.
+  //   var email = error.email;
+  //   // The firebase.auth.AuthCredential type that was used.
+  //   var credential = error.credential;
+  //   // ...
+  // });
   
 
   // click event for submit button
@@ -149,6 +149,7 @@ $(document).ready(function() {
 });
 
 
+//attempting to get google sign-in to work
 function login(){
   function newLoginHappened(user){
     if (user) {
@@ -168,7 +169,9 @@ function app(user) {
   // user.email
   // user.photoURL
   // user.uid
-  document.getElementById("clientName").innerHTML = user.displayName;
+  $("#clientName").html(user.displayName);
+  // $("#clientName").html("there!");
+
 }
 
 window.onload = login;
