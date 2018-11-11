@@ -147,3 +147,28 @@ $(document).ready(function() {
 
 
 });
+
+
+function login(){
+  function newLoginHappened(user){
+    if (user) {
+      // User is signed in
+      app(user);
+    } else {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider);
+    }
+  }
+
+  firebase.auth().onAuthStateChanged(newLoginHappened);
+}
+
+function app(user) {
+  // user.displayName
+  // user.email
+  // user.photoURL
+  // user.uid
+  document.getElementById("clientName").innerHTML = user.displayName;
+}
+
+window.onload = login;
